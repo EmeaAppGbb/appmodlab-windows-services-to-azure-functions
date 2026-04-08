@@ -14,3 +14,28 @@ Thumbs.db
 # Dependencies
 node_modules/
 vendor/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.dll
+*.exe
+*.pdb
+packages/
+*.nupkg
+
+# Logs
+logs/
+*.log
+
+# Meridian Data
+C:/MeridianData/
