@@ -14,8 +14,6 @@ namespace Meridian.ComplianceReporter.Exporters
         {
             try
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                
                 using (var package = new ExcelPackage())
                 {
                     var worksheet = package.Workbook.Worksheets.Add(sheetName);

@@ -85,7 +85,7 @@ namespace Meridian.PortfolioValuation
 
                     CheckThresholds(portfolioId, portfolioName, valuation);
 
-                    log.Info($"Valuation completed for portfolio {portfolioName}: NAV={valuation.NAV:C}");
+                    log.Info($"Valuation completed for portfolio {portfolioName}: NAV={valuation["NAV"]:C}");
                 }
                 catch (Exception ex)
                 {
