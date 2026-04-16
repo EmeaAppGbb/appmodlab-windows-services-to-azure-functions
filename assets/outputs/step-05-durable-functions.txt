@@ -1,0 +1,147 @@
+ÔùÅ List directory Meridian.Shared
+  Ôöö 5 files found
+
+ÔùÅ List directory Meridian.Functions
+  Ôöö 8 files found
+
+ÔùÅ Read Meridian.Functions.csproj
+  Ôöé Meridian.Functions\Meridian.Functions.csproj
+  Ôöö 37 lines read
+
+ÔùÅ Read Program.cs
+  Ôöé Meridian.Functions\Program.cs
+  Ôöö 14 lines read
+
+ÔùÅ List directory Meridian.Functions\Functions
+  Ôöö 3 files found
+
+ÔùÅ List directory Meridian.Shared\Models
+  Ôöö 3 files found
+
+ÔùÅ List directory Meridian.Functions\Models
+  Ôöö 11 files found
+
+ÔùÅ Read ComplianceRuleResult.cs
+  Ôöé Meridian.Functions\Models\ComplianceRuleResult.cs
+  Ôöö 8 lines read
+
+ÔùÅ Read ComplianceCheckMessage.cs
+  Ôöé Meridian.Functions\Models\ComplianceCheckMessage.cs
+  Ôöö 11 lines read
+
+ÔùÅ Read ExtractionMessage.cs
+  Ôöé Meridian.Functions\Models\ExtractionMessage.cs
+  Ôöö 12 lines read
+
+ÔùÅ Read ClassifyDocumentMessage.cs
+  Ôöé Meridian.Functions\Models\ClassifyDocumentMessage.cs
+  Ôöö 10 lines read
+
+ÔùÅ Read NotificationMessage.cs
+  Ôöé Meridian.Functions\Models\NotificationMessage.cs
+  Ôöö 13 lines read
+
+ÔùÅ Read DocumentMetadata.cs
+  Ôöé Meridian.Functions\Models\DocumentMetadata.cs
+  Ôöö 13 lines read
+
+ÔùÅ List directory Meridian.Functions\Functions\DocumentProcessing
+  Ôöö 5 files found
+
+ÔùÅ Read ClassifyDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ClassifyDocumentFunction.cs
+  Ôöö 70 lines read
+
+ÔùÅ Read ExtractDataFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ExtractDataFunction.cs
+  Ôöö 220 lines read
+
+ÔùÅ Read ComplianceCheckFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+  Ôöö 169 lines read
+
+ÔùÅ Read NotifyFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\NotifyFunction.cs
+  Ôöö 130 lines read
+
+Now I have a clear picture of the codebase. Let me implement everything.
+
+ÔùÅ Edit Meridian.Functions.csproj +3
+  Ôöö Meridian.Functions\Meridian.Functions.csproj
+
+ÔùÅ Create Orchestration directory (shell)
+  Ôöé New-Item -ItemType Directory -Path "C:\code\gbb\labs\appmodlab-windows-servi
+  Ôöé ces-to-azure-functions\Meridian.Functions\Functions\Orchestration" -Force |
+  Ôöé Out-Null; Write-Host "Done"
+  Ôöö 2 lines...
+
+ÔùÅ Create ExtractionResult.cs +16
+  Ôöö Meridian.Functions\Models\ExtractionResult.cs
+
+ÔùÅ Create DocumentProcessingInput.cs +14
+  Ôöö Meridian.Functions\Models\DocumentProcessingInput.cs
+
+ÔùÅ Create DocumentProcessingResult.cs +17
+  Ôöö Meridian.Functions\Models\DocumentProcessingResult.cs
+
+ÔùÅ Create ComplianceRuleInput.cs +16
+  Ôöö Meridian.Functions\Models\ComplianceRuleInput.cs
+
+ÔùÅ Create ClassificationResult.cs +17
+  Ôöö Meridian.Functions\Models\ClassificationResult.cs
+
+Now create the three orchestration files:
+
+ÔùÅ Create DocumentProcessingActivities.cs +171
+  Ôöö Meridian.Functions\Functions\Orchestration\DocumentProcessingActivities.cs
+
+ÔùÅ Create DocumentProcessingOrchestrator.cs +135
+  Ôöö Meridian.Functions\Functions\Orchestration\DocumentProcessingOrchestrator.cs
+
+ÔùÅ Create DocumentProcessingHttpStarter.cs +85
+  Ôöö Meridian.Functions\Functions\Orchestration\DocumentProcessingHttpStarter.cs
+
+Now let's build to verify compilation:
+
+ÔùÅ Build Meridian.Functions project (shell)
+  Ôöé cd "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.
+  Ôöé Functions" ; dotnet build --no-restore 2>&1 | Select-Object -Last 30
+  Ôöö 48 lines...
+
+Need to restore packages first:
+
+ÔùÅ Restore NuGet packages (shell)
+  Ôöé cd "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.
+  Ôöé Functions" ; dotnet restore 2>&1 | Select-Object -Last 15
+  Ôöö 8 lines...
+
+Let me fix the package versions:
+
+ÔùÅ Edit Meridian.Functions.csproj +1 -3
+  Ôöö Meridian.Functions\Meridian.Functions.csproj
+
+ÔùÅ Restore NuGet packages (shell)
+  Ôöé cd "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.
+  Ôöé Functions" ; dotnet restore 2>&1 | Select-Object -Last 10
+  Ôöö 3 lines...
+
+ÔùÅ Build project (shell)
+  Ôöé cd "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.
+  Ôöé Functions" ; dotnet build --no-restore 2>&1 | Select-Object -Last 20
+  Ôöö 7 lines...
+
+Build succeeded with 0 errors, 0 warnings. Here's a summary of what was created:
+
+**New files:**
+- `Functions/Orchestration/DocumentProcessingOrchestrator.cs` ÔÇö Durable orchestrator: classify ÔåÆ extract ÔåÆ fan-out compliance checks ÔåÆ notify. Uses `RetryPolicy(maxNumberOfAttempts: 3, firstRetryInterval: 5s)` and `Task.WhenAll` for parallel compliance rules.
+- `Functions/Orchestration/DocumentProcessingActivities.cs` ÔÇö Four activity functions: `ClassifyActivity`, `ExtractActivity`, `ComplianceCheckActivity`, `NotifyActivity`, mirroring existing queue-based pipeline logic.
+- `Functions/Orchestration/DocumentProcessingHttpStarter.cs` ÔÇö HTTP starter (`POST` to start, `GET` to check status) with `DurableClient` binding.
+- `Models/DocumentProcessingInput.cs`, `ClassificationResult.cs`, `ExtractionResult.cs`, `ComplianceRuleInput.cs`, `DocumentProcessingResult.cs` ÔÇö Pipeline data models.
+
+**Modified:**
+- `Meridian.Functions.csproj` ÔÇö Added `Microsoft.Azure.Functions.Worker.Extensions.DurableTask` v1.4.0.
+
+
+Changes   +475 -3
+Requests  3 Premium (3m 14s)
+Tokens    Ôåæ 505.3k ÔÇó Ôåô 8.8k ÔÇó 454.1k (cached)
