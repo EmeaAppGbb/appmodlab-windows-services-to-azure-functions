@@ -1,0 +1,93 @@
+ÔùÅ List directory .
+  Ôöö 12 files found
+
+ÔùÅ List directory Meridian.DocumentProcessor
+  Ôöö 9 files found
+
+ÔùÅ List directory Meridian.Shared
+  Ôöö 5 files found
+
+ÔùÅ List directory Meridian.ComplianceReporter
+  Ôöö 8 files found
+
+ÔùÅ List directory Meridian.PortfolioValuation
+  Ôöö 9 files found
+
+ÔùÅ Explore Read all service files
+  Ôöé Read README.md
+  Ôöé   Ôöö 1 line read
+  Ôöö Read APPMODLAB.MD
+      Ôöö 97 lines read
+
+ÔùÅ Read full explore output (shell)
+  Ôöé Get-Content "C:\Users\madasi\AppData\Local\Temp\1776368174894-copilot-tool-o
+  Ôöé utput-p647hr.txt" | Out-String
+  Ôöö 11 lines...
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L1:100 (100 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L100:300 (201 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L500:700 (201 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L700:900 (201 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L300:500 (201 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L900:1100 (200 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L1100:1250 (151 lines read)
+
+ÔùÅ Read 1776368174894-copilot-tool-output-p647hr.txt
+  Ôöé ~\AppData\Local\Temp\1776368174894-copilot-tool-output-p647hr.txt
+  Ôöö L1250:1400 (151 lines read)
+
+Now I have comprehensive information. Let me create the migration mapping document.
+
+ÔùÅ List directory assets
+  Ôöö 3 files found
+
+ÔùÅ Create migration-mapping.md +516
+  Ôöö assets\migration-mapping.md
+
+Now let me verify the file was created correctly and store a useful memory:
+
+ÔùÅ Memory stored project structure
+  Ôöö Meridian Capital has 3 Windows Services (Topshelf, .NET 4.8):
+    DocumentProcessor ÔÇª
+
+ÔùÅ Verify migration mapping file (shell)
+  Ôöé Get-Item "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\ass
+  Ôöé ets\migration-mapping.md" | Select-Object Name, Length, LastWriteTime
+  Ôöö 4 lines...
+
+Created `assets/migration-mapping.md` (35 KB, 10 sections). The document covers:
+
+1. **Component inventory** ÔÇö all classes in each of the 3 services + shared library with responsibilities
+2. **Trigger mapping** ÔÇö FileSystemWatcher ÔåÆ Blob Trigger, System.Timers.Timer ÔåÆ Timer Trigger (with CRON expressions), plus optional Queue Trigger for alerts
+3. **Detailed component mappings** ÔÇö side-by-side current vs. target for every class
+4. **Shared library refactoring** ÔÇö SqlHelper ÔåÆ async `IDataService` with DI; static ÔåÆ instance; `System.Data.SqlClient` ÔåÆ `Microsoft.Data.SqlClient`
+5. **SMTP ÔåÆ Azure Communication Services** mapping with proposed `IEmailService` interface
+6. **Configuration migration matrix** ÔÇö every App.config key mapped to Azure Functions equivalent
+7. **Database/stored procedure inventory** ÔÇö all 8 tables, 16 stored procedures, and which services call them
+8. **NuGet package migration** ÔÇö replacements for Topshelf, log4net, iTextSharp, EPPlus, etc.
+9. **Risks & mitigations** ÔÇö blob trigger latency, licensing, syncÔåÆasync, hardcoded values
+
+
+Changes   +516 -0
+Requests  3 Premium (6m 40s)
+Tokens    Ôåæ 734.6k ÔÇó Ôåô 31.1k ÔÇó 605.5k (cached)
