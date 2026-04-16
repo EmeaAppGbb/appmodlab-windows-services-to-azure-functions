@@ -1,0 +1,132 @@
+ÔùÅ List directory Meridian.Functions
+  Ôöö 9 files found
+
+ÔùÅ Read Program.cs
+  Ôöé Meridian.Functions\Program.cs
+  Ôöö 34 lines read
+
+ÔùÅ Read Meridian.Functions.csproj
+  Ôöé Meridian.Functions\Meridian.Functions.csproj
+  Ôöö 39 lines read
+
+ÔùÅ Read host.json
+  Ôöé Meridian.Functions\host.json
+  Ôöö 22 lines read
+
+ÔùÅ Read local.settings.json
+  Ôöé Meridian.Functions\local.settings.json
+  Ôöö 7 lines read
+
+ÔùÅ List directory Meridian.Functions\Models
+  Ôöö 16 files found
+
+ÔùÅ List directory Meridian.Functions\Functions
+  Ôöö 5 files found
+
+ÔùÅ List directory Meridian.Functions\Services
+  Ôöö 1 file found
+
+Now let me read all the function files and the services:
+
+ÔùÅ Search (glob)
+  Ôöé "Meridian.Functions/Functions/**/*.cs"
+  Ôöö 16 files found
+
+ÔùÅ Explore Read all function files
+  Ôöö Agent started in background with agent_id: read-all-functions. You can u...
+
+Let me also start the build to see what errors we get:
+
+ÔùÅ Build Meridian.Functions project (shell)
+  Ôöé dotnet build Meridian.Functions/Meridian.Functions.csproj 2>&1
+  Ôöö 416 lines...
+
+Build succeeded with no errors. Now let me read the agent results to get function details for the README.
+
+ÔùÅ Read (Explore agent ÔÇö Read all function files)
+  Ôöö Running
+
+Let me read the function files directly while waiting:
+
+ÔùÅ Read PortfolioValuationFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+  Ôöé s
+  Ôöö 211 lines read
+
+ÔùÅ Read HealthCheckFunction.cs
+  Ôöé Meridian.Functions\Functions\Health\HealthCheckFunction.cs
+  Ôöö 163 lines read
+
+ÔùÅ Read MarketDataFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\MarketDataFunction.cs
+  Ôöö 108 lines read
+
+ÔùÅ Read AlertFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+  Ôöö 89 lines read
+
+ÔùÅ Read DailyComplianceReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\DailyComplianceReportFuncti
+  Ôöé on.cs
+  Ôöö 125 lines read
+
+ÔùÅ Read WeeklyRiskReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\WeeklyRiskReportFunction.cs
+  Ôöö 102 lines read
+
+ÔùÅ Read ProcessDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+  Ôöö 60 lines read
+
+ÔùÅ Read ComplianceCheckFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+  Ôöö 175 lines read
+
+ÔùÅ Read OnDemandReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\OnDemandReportFunction.cs
+  Ôöö 174 lines read
+
+ÔùÅ Read MonthlyAuditReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\MonthlyAuditReportFunction.
+  Ôöé cs
+  Ôöö 133 lines read
+
+ÔùÅ Read ClassifyDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ClassifyDocumentFunction.cs
+  Ôöö 70 lines read
+
+ÔùÅ Read ExtractDataFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ExtractDataFunction.cs
+  Ôöö 220 lines read
+
+ÔùÅ Read NotifyFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\NotifyFunction.cs
+  Ôöö 130 lines read
+
+ÔùÅ Read DocumentProcessingHttpStarter.cs
+  Ôöé Meridian.Functions\Functions\Orchestration\DocumentProcessingHttpStarter.cs
+  Ôöö 84 lines read
+
+ÔùÅ Read DocumentProcessingActivities.cs
+  Ôöé Meridian.Functions\Functions\Orchestration\DocumentProcessingActivities.cs
+  Ôöö 170 lines read
+
+ÔùÅ Read DocumentProcessingOrchestrator.cs
+  Ôöé Meridian.Functions\Functions\Orchestration\DocumentProcessingOrchestrator.cs
+  Ôöö 134 lines read
+
+Now I have all the info. Build succeeded with zero errors. Let me create the README.
+
+ÔùÅ Create README.md +154
+  Ôöö Meridian.Functions\README.md
+
+Both tasks are complete:
+
+1. **Build**: `dotnet build Meridian.Functions/Meridian.Functions.csproj` succeeded with **zero compilation errors** ÔÇö no fixes needed.
+
+2. **README**: Created `Meridian.Functions/README.md` documenting all **21 Azure Functions** across 5 categories (Document Processing, Compliance Reporting, Portfolio Valuation, Health, Durable Orchestration) in tables with Name, Trigger Type, Schedule/Queue/Container, and Description. Also includes local development setup, deployment instructions, app settings reference, and blob/queue inventory.
+
+
+Changes   +154 -0
+Requests  3 Premium (3m 23s)
+Tokens    Ôåæ 413.4k ÔÇó Ôåô 33.3k ÔÇó 269.2k (cached)
