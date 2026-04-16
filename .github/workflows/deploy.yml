@@ -1,0 +1,123 @@
+name: Build, Test, and Deploy Meridian Functions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Meridian.Functions/**'
+      - 'Meridian.Shared/**'
+      - 'infrastructure/**'
+      - '.github/workflows/deploy.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Meridian.Functions/**'
+      - 'Meridian.Shared/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  FUNCTION_APP_PROJECT: 'Meridian.Functions/Meridian.Functions.csproj'
+  AZURE_RESOURCE_GROUP: 'rg-meridian-${{ github.event.inputs.environment || ''dev'' }}'
+  FUNCTION_APP_NAME: 'func-meridian-${{ github.event.inputs.environment || ''dev'' }}'
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore MeridianDocProcessor.sln
+
+      - name: Build solution
+        run: dotnet build MeridianDocProcessor.sln --configuration Release --no-restore
+
+      - name: Publish Function App
+        run: dotnet publish ${{ env.FUNCTION_APP_PROJECT }} --configuration Release --output ./publish --no-build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: function-app-package
+          path: ./publish
+          retention-days: 7
+
+  deploy-infrastructure:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: ${{ github.event.inputs.environment || 'dev' }}
+    outputs:
+      functionAppName: ${{ steps.deploy.outputs.functionAppName }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Bicep template
+        id: deploy
+        uses: azure/arm-deploy@v2
+        with:
+          resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
+          template: ./infrastructure/main.bicep
+          parameters: >
+            environmentName=${{ github.event.inputs.environment || 'dev' }}
+            sqlAdminLogin=${{ secrets.SQL_ADMIN_LOGIN }}
+            sqlAdminPassword=${{ secrets.SQL_ADMIN_PASSWORD }}
+            communicationServicesConnectionString=${{ secrets.ACS_CONNECTION_STRING }}
+          failOnStdErr: false
+
+  deploy-function-app:
+    name: Deploy Function App
+    runs-on: ubuntu-latest
+    needs: [build-and-test, deploy-infrastructure]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: ${{ github.event.inputs.environment || 'dev' }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: function-app-package
+          path: ./publish
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Functions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ needs.deploy-infrastructure.outputs.functionAppName || env.FUNCTION_APP_NAME }}
+          package: ./publish
