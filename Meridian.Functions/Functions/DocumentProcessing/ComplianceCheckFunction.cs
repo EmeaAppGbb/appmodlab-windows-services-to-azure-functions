@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Azure.Storage.Queues;
 using Meridian.Functions.Models;
+using Meridian.Functions.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -15,10 +16,12 @@ namespace Meridian.Functions.Functions.DocumentProcessing;
 public class ComplianceCheckFunction
 {
     private readonly ILogger<ComplianceCheckFunction> _logger;
+    private readonly ITelemetryService _telemetry;
 
-    public ComplianceCheckFunction(ILogger<ComplianceCheckFunction> logger)
+    public ComplianceCheckFunction(ILogger<ComplianceCheckFunction> logger, ITelemetryService telemetry)
     {
         _logger = logger;
+        _telemetry = telemetry;
     }
 
     [Function(nameof(CheckCompliance))]
@@ -43,6 +46,9 @@ public class ComplianceCheckFunction
         _logger.LogInformation(
             "Compliance check completed for {FileName}: {Passed} passed, {Failed} failed. Overall: {Result}",
             message.FileName, passedCount, failedCount, overallResult);
+
+        _telemetry.TrackComplianceCheckResult(
+            message.FileName ?? "unknown", overallResult == "PASS", passedCount, failedCount);
 
         // Forward to notification-queue (mirrors legacy pipeline: compliance -> email notify)
         var notificationMessage = new NotificationMessage

@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using System.Text.Json;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Meridian.Functions.Models;
+using Meridian.Functions.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -10,10 +12,12 @@ namespace Meridian.Functions.Functions.DocumentProcessing;
 public class ProcessDocumentFunction
 {
     private readonly ILogger<ProcessDocumentFunction> _logger;
+    private readonly ITelemetryService _telemetry;
 
-    public ProcessDocumentFunction(ILogger<ProcessDocumentFunction> logger)
+    public ProcessDocumentFunction(ILogger<ProcessDocumentFunction> logger, ITelemetryService telemetry)
     {
         _logger = logger;
+        _telemetry = telemetry;
     }
 
     [Function(nameof(ProcessDocument))]
@@ -23,6 +27,7 @@ public class ProcessDocumentFunction
         FunctionContext context)
     {
         _logger.LogInformation("New document detected: {FileName}, Size: {Size} bytes", name, blobStream.Length);
+        var sw = Stopwatch.StartNew();
 
         var message = new ClassifyDocumentMessage
         {
@@ -48,5 +53,8 @@ public class ProcessDocumentFunction
         await queueClient.SendMessageAsync(Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(messageJson)));
 
         _logger.LogInformation("Document {FileName} queued for classification", name);
+
+        sw.Stop();
+        _telemetry.TrackDocumentProcessingDuration(name, message.ContentType ?? "unknown", sw.Elapsed);
     }
 }

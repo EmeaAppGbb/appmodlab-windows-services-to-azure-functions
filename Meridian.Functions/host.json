@@ -1,12 +1,22 @@
 {
   "version": "2.0",
+  "functionTimeout": "00:10:00",
   "logging": {
+    "logLevel": {
+      "default": "Information",
+      "Microsoft": "Warning",
+      "System": "Warning",
+      "Meridian.Functions": "Information"
+    },
     "applicationInsights": {
       "samplingSettings": {
         "isEnabled": true,
-        "excludedTypes": "Request"
+        "maxTelemetryItemsPerSecond": 20,
+        "excludedTypes": "Request;Dependency",
+        "includedTypes": "Event;Trace;Exception"
       },
-      "enableLiveMetricsFilters": true
+      "enableLiveMetricsFilters": true,
+      "enableDependencyTracking": true
     }
   }
 }

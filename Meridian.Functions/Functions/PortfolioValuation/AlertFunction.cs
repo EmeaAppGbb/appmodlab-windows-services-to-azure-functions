@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Meridian.Functions.Models;
+using Meridian.Functions.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -15,10 +16,12 @@ namespace Meridian.Functions.Functions.PortfolioValuation;
 public class AlertFunction
 {
     private readonly ILogger<AlertFunction> _logger;
+    private readonly ITelemetryService _telemetry;
 
-    public AlertFunction(ILogger<AlertFunction> logger)
+    public AlertFunction(ILogger<AlertFunction> logger, ITelemetryService telemetry)
     {
         _logger = logger;
+        _telemetry = telemetry;
     }
 
     [Function(nameof(ProcessAlert))]
@@ -45,6 +48,7 @@ public class AlertFunction
             await SendEmailAlertAsync(alert);
 
             _logger.LogInformation("Alert processed successfully for portfolio {PortfolioId}", alert.PortfolioId);
+            _telemetry.TrackAlert(alert.AlertType ?? "Unknown", alert.PortfolioName ?? "Unknown");
         }
         catch (Exception ex)
         {

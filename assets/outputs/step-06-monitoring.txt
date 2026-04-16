@@ -1,0 +1,273 @@
+ÔùÅ List directory Meridian.Functions
+  Ôöö 8 files found
+
+ÔùÅ List directory Meridian.Shared
+  Ôöö 5 files found
+
+ÔùÅ Read Meridian.Functions.csproj
+  Ôöé Meridian.Functions\Meridian.Functions.csproj
+  Ôöö 38 lines read
+
+ÔùÅ Read Program.cs
+  Ôöé Meridian.Functions\Program.cs
+  Ôöö 14 lines read
+
+ÔùÅ Read host.json
+  Ôöé Meridian.Functions\host.json
+  Ôöö 12 lines read
+
+ÔùÅ List directory Meridian.Functions\Models
+  Ôöö 16 files found
+
+ÔùÅ List directory Meridian.Functions\Functions
+  Ôöö 4 files found
+
+ÔùÅ Read local.settings.json
+  Ôöé Meridian.Functions\local.settings.json
+  Ôöö 7 lines read
+
+ÔùÅ List directory Meridian.Shared\Data
+  Ôöö 2 files found
+
+ÔùÅ Search (glob)
+  Ôöé "Meridian.Functions/Functions/**/*.cs"
+  Ôöö 15 files found
+
+Now let me read all the existing function files to understand their structure:
+
+ÔùÅ Explore Read all function files
+  Ôöö Agent started in background with agent_id: read-all-functions. You can u...
+
+ÔùÅ Read (Explore agent ÔÇö Read all function files)
+  Ôöö Completed
+
+ÔùÅ Read PortfolioValuationFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+  Ôöé s
+  Ôöö 204 lines read
+
+ÔùÅ Read ProcessDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+  Ôöö 52 lines read
+
+ÔùÅ Read DailyComplianceReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\DailyComplianceReportFuncti
+  Ôöé on.cs
+  Ôöö 125 lines read
+
+ÔùÅ Read ComplianceCheckFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+  Ôöö 169 lines read
+
+ÔùÅ Read MarketDataFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\MarketDataFunction.cs
+  Ôöö 108 lines read
+
+ÔùÅ Read WeeklyRiskReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\WeeklyRiskReportFunction.cs
+  Ôöö 102 lines read
+
+ÔùÅ Read OnDemandReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\OnDemandReportFunction.cs
+  Ôöö 174 lines read
+
+ÔùÅ Read AlertFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+  Ôöö 85 lines read
+
+ÔùÅ Read MonthlyAuditReportFunction.cs
+  Ôöé Meridian.Functions\Functions\ComplianceReporting\MonthlyAuditReportFunction.
+  Ôöé cs
+  Ôöö 133 lines read
+
+Now I have a thorough understanding. Let me also read the remaining function files and then implement all changes.
+
+ÔùÅ Read ExtractDataFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ExtractDataFunction.cs
+  Ôöö 220 lines read
+
+ÔùÅ Read ClassifyDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ClassifyDocumentFunction.cs
+  Ôöö 70 lines read
+
+ÔùÅ Read NotifyFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\NotifyFunction.cs
+  Ôöö 130 lines read
+
+Now I have a full picture. Let me implement all changes. I'll create the new files and update existing ones:
+
+ÔùÅ Create directories for new files (shell)
+  Ôöé New-Item -ItemType Directory -Path "C:\code\gbb\labs\appmodlab-windows-ser
+  Ôöé vices-to-azure-functions\Meridian.Functions\Services" -Force | Out-Null
+  Ôöé New-Item -ItemType Directory -Path "C:\code\gbb\labs\appmodlab-windows-ser
+  Ôöé vices-to-azure-functions\Meridian.Functions\Functions\Health" -Force |
+  Ôöé Out-NullÔÇª
+  Ôöö 3 lines...
+
+ÔùÅ Create TelemetryService.cs +125
+  Ôöö Meridian.Functions\Services\TelemetryService.cs
+
+ÔùÅ Create HealthCheckFunction.cs +164
+  Ôöö Meridian.Functions\Functions\Health\HealthCheckFunction.cs
+
+Now update Program.cs, host.json, and the csproj (for SqlClient):
+
+ÔùÅ Edit host.json +12 -2
+  Ôöö Meridian.Functions\host.json
+
+ÔùÅ Edit Program.cs +21 -1
+  Ôöö Meridian.Functions\Program.cs
+
+Now add the `Microsoft.Data.SqlClient` package reference to the csproj for the HealthCheckFunction:
+
+ÔùÅ Edit Meridian.Functions.csproj +1
+  Ôöö Meridian.Functions\Meridian.Functions.csproj
+
+Now update existing functions to use structured logging with `ITelemetryService`. I'll add telemetry to the key functions:
+
+ÔùÅ Edit PortfolioValuationFunction.cs +2
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+    s
+
+ÔùÅ Edit PortfolioValuationFunction.cs +3 -1
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+    s
+
+Ô£ù Edit PortfolioValuationFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+  Ôöé s
+  Ôöö No match found
+
+ÔùÅ Read PortfolioValuationFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+  Ôöé s
+  Ôöö L43:62 (20 lines read)
+
+ÔùÅ Edit PortfolioValuationFunction.cs +5 -2
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+    s
+
+Now update AlertFunction to use telemetry:
+
+ÔùÅ Edit AlertFunction.cs +1
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+
+ÔùÅ Edit AlertFunction.cs +3 -1
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+
+ÔùÅ Edit AlertFunction.cs +1
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+
+Now update ComplianceCheckFunction:
+
+ÔùÅ Edit ComplianceCheckFunction.cs +1
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+
+ÔùÅ Edit ComplianceCheckFunction.cs +3 -1
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+
+ÔùÅ Edit ComplianceCheckFunction.cs +3
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+
+Now update ProcessDocumentFunction with telemetry:
+
+ÔùÅ Edit ProcessDocumentFunction.cs +2
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+
+ÔùÅ Edit ProcessDocumentFunction.cs +3 -1
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+
+ÔùÅ Edit ProcessDocumentFunction.cs +1
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+
+ÔùÅ Edit ProcessDocumentFunction.cs +3
+  Ôöö Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+
+Now let's build to check for errors:
+
+ÔùÅ Build Meridian.Functions project (shell)
+  Ôöé cd C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions && dotnet
+  Ôöé build Meridian.Functions\Meridian.Functions.csproj 2>&1
+  Ôöö 691 lines...
+
+Build succeeded with just one nullable warning. Let me fix that:
+
+ÔùÅ Read PortfolioValuationFunction.cs
+  Ôöé Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+  Ôöé s
+  Ôöö L54:62 (9 lines read)
+
+ÔùÅ Search (grep)
+  Ôöé "public string PortfolioName" (Meridian.Functions\Models)
+  Ôöö No matches found
+
+ÔùÅ Search (grep)
+  Ôöé "PortfolioName" (Meridian.Functions\Models\PortfolioValuationResult.cs)
+  Ôöö 1 line found
+
+It's a nullable string. Fix:
+
+ÔùÅ Edit PortfolioValuationFunction.cs +1 -1
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+    s
+
+ÔùÅ Build and check for errors (shell)
+  Ôöé cd C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions && dotnet
+  Ôöé build Meridian.Functions\Meridian.Functions.csproj --no-restore 2>&1 |
+  Ôöé Select-String -Pattern "(error|warning|succeeded|failed)"
+  Ôöö 4 lines...
+
+Build succeeded with 0 warnings, 0 errors. Let me verify all changes look correct:
+
+ÔùÅ Check changed files summary (shell)
+  Ôöé cd C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions && git
+  Ôöé --no-pager diff --stat
+  Ôöö 9 lines...
+
+ÔùÅ Check new files status (shell)
+  Ôöé cd C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions && git
+  Ôöé --no-pager diff --stat -- . ":(exclude)Meridian.Functions" 2>&1; git
+  Ôöé --no-pager status --short -- Meridian.Functions/Services
+  Ôöé Meridian.Functions/Functions/Health 2>&1
+  Ôöö 3 lines...
+
+All changes are in place. Here's a summary:
+
+## Changes Made
+
+**1. Program.cs** ÔÇö Enhanced Application Insights configuration:
+- Added `EnableAdaptiveSampling = false` for worker service telemetry
+- Registered `ITelemetryService`/`TelemetryService` as singleton in DI
+- Configured log level filters (Microsoft/System/Azure ÔåÆ Warning, Meridian ÔåÆ Information)
+
+**2. Services/TelemetryService.cs** (new) ÔÇö Custom telemetry wrapper tracking:
+- Document processing durations
+- Compliance check pass/fail rates
+- Portfolio valuation durations + NAV
+- Alert counts by type
+- Generic custom metrics and events
+
+**3. Functions/Health/HealthCheckFunction.cs** (new) ÔÇö HTTP GET `/api/health`:
+- Returns FunctionApp status, Azure Storage connectivity, SQL connectivity
+- Returns 200 for healthy, 503 for unhealthy
+
+**4. host.json** ÔÇö Updated with:
+- `functionTimeout: "00:10:00"`
+- Structured log levels per namespace
+- Refined sampling (20 items/sec, excludes Request+Dependency, includes Event+Trace+Exception)
+- Dependency tracking enabled
+
+**5. Existing functions updated** with `ITelemetryService`:
+- `PortfolioValuationFunction` ÔÇö tracks valuation duration per portfolio with `Stopwatch`
+- `AlertFunction` ÔÇö tracks alert counts by type
+- `ComplianceCheckFunction` ÔÇö tracks compliance pass/fail rates
+- `ProcessDocumentFunction` ÔÇö tracks document processing duration
+
+**6. Meridian.Functions.csproj** ÔÇö Added `Microsoft.Data.SqlClient` for SQL health checks
+
+All code compiles cleanly (0 errors, 0 warnings). No commits made.
+
+
+Changes   +355 -10
+Requests  3 Premium (4m 52s)
+Tokens    Ôåæ 1.5m ÔÇó Ôåô 18.0k ÔÇó 1.4m (cached)

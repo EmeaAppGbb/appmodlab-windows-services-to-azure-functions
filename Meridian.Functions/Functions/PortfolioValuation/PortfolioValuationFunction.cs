@@ -1,8 +1,10 @@
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Meridian.Functions.Models;
+using Meridian.Functions.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -19,10 +21,12 @@ namespace Meridian.Functions.Functions.PortfolioValuation;
 public class PortfolioValuationFunction
 {
     private readonly ILogger<PortfolioValuationFunction> _logger;
+    private readonly ITelemetryService _telemetry;
 
-    public PortfolioValuationFunction(ILogger<PortfolioValuationFunction> logger)
+    public PortfolioValuationFunction(ILogger<PortfolioValuationFunction> logger, ITelemetryService telemetry)
     {
         _logger = logger;
+        _telemetry = telemetry;
     }
 
     [Function(nameof(RunPortfolioValuation))]
@@ -44,13 +48,16 @@ public class PortfolioValuationFunction
             {
                 try
                 {
+                    var sw = Stopwatch.StartNew();
                     var result = CalculateValuation(portfolio, marketData);
+                    sw.Stop();
                     results.Add(result);
 
                     await CheckThresholdsAsync(result);
 
-                    _logger.LogInformation("Valuation completed for portfolio {Name}: NAV={NAV:C}",
-                        result.PortfolioName, result.NAV);
+                    _telemetry.TrackPortfolioValuationDuration(result.PortfolioName ?? "Unknown", sw.Elapsed, result.NAV);
+                    _logger.LogInformation("Valuation completed for portfolio {PortfolioName}: NAV={NAV:C}, Duration={DurationMs}ms",
+                        result.PortfolioName, result.NAV, sw.ElapsedMilliseconds);
                 }
                 catch (Exception ex)
                 {
