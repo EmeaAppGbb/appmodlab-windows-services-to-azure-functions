@@ -95,3 +95,97 @@ The migration mapping shows how each legacy Windows Service component maps to it
 
 ### Migration Mapping (Legacy → Azure Functions)
 ![Migration Mapping](assets/screenshots/08-migration-mapping.png)
+
+---
+
+## Solution Walkthrough
+
+This solution was built step-by-step using **GitHub Copilot CLI** (`gh copilot`). Each step is tagged in the `solution-final` branch. All CLI outputs are captured in `assets/outputs/`.
+
+### Branch & Tags
+
+| Branch | Description |
+|--------|-------------|
+| `solution-final` | Complete solution with all 8 steps |
+
+| Tag | Commit | Description |
+|-----|--------|-------------|
+| `step-01-explore-and-map` | Step 01 | Explore legacy services and create migration mapping |
+| `step-02-blob-functions` | Step 02 | Blob-triggered document processing functions |
+| `step-03-queue-pipeline` | Step 03 | Queue pipeline (extract → compliance → notify) |
+| `step-04-timer-functions` | Step 04 | Timer functions for reports and portfolio valuation |
+| `step-05-durable-functions` | Step 05 | Durable Functions orchestration with retry |
+| `step-06-monitoring` | Step 06 | Application Insights monitoring and health checks |
+| `step-07-deploy` | Step 07 | Bicep infrastructure and GitHub Actions CI/CD |
+| `step-08-final-review` | Step 08 | Build verification and Functions README |
+
+### Step-by-Step CLI Commands
+
+**Step 1 — Explore & Map Windows Services**
+```bash
+gh copilot -- -p "Analyze the three Windows Services and create a migration mapping document at assets/migration-mapping.md" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-01-explore-and-map.txt`
+
+**Step 2 — Build Blob-Triggered Functions**
+```bash
+gh copilot -- -p "Create Azure Functions v4 project (.NET 9 isolated worker) with BlobTrigger for document processing and QueueTrigger for classification" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-02-blob-functions.txt`
+
+**Step 3 — Build Queue Pipeline**
+```bash
+gh copilot -- -p "Add queue-based pipeline: ExtractDataFunction, ComplianceCheckFunction, NotifyFunction with Azure Communication Services" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-03-queue-pipeline.txt`
+
+**Step 4 — Build Timer Functions**
+```bash
+gh copilot -- -p "Add TimerTrigger functions for compliance reports (daily/weekly/monthly), on-demand HTTP reports, portfolio valuation, market data refresh, and alerts" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-04-timer-functions.txt`
+
+**Step 5 — Add Durable Functions Orchestration**
+```bash
+gh copilot -- -p "Add Durable Functions orchestrator for multi-step document processing with fan-out/fan-in and retry policies" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-05-durable-functions.txt`
+
+**Step 6 — Add Monitoring**
+```bash
+gh copilot -- -p "Add Application Insights telemetry, TelemetryService, HealthCheckFunction, and structured logging" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-06-monitoring.txt`
+
+**Step 7 — Deploy Infrastructure**
+```bash
+gh copilot -- -p "Create Bicep templates (Function App, Storage, SQL, App Insights) and GitHub Actions deploy workflow" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-07-deploy.txt`
+
+**Step 8 — Final Review**
+```bash
+gh copilot -- -p "Build verification and create Meridian.Functions/README.md with function catalog" --allow-all-tools --yolo
+```
+Output: `assets/outputs/step-08-final-review.txt`
+
+### Functions Created
+
+| Function | Trigger | Schedule/Queue/Container | Service Replaced |
+|----------|---------|--------------------------|------------------|
+| ProcessDocument | Blob | `incoming-documents` | DocumentProcessor FileWatcher |
+| ClassifyDocument | Queue | `classification-queue` | DocumentClassifier |
+| ExtractData | Queue | `extraction-queue` | DataExtractor, PdfParser, CsvImporter |
+| ComplianceCheck | Queue | `compliance-queue` | ComplianceChecker |
+| Notify | Queue | `notification-queue` | EmailNotifier → Azure Comms |
+| DailyComplianceReport | Timer | `0 0 18 * * *` | DailyComplianceReport |
+| WeeklyRiskReport | Timer | `0 0 9 * * 5` | WeeklyRiskReport |
+| MonthlyAuditReport | Timer | `0 0 6 1 * *` | MonthlyAuditReport |
+| OnDemandReport | HTTP | `POST /api/reports` | New capability |
+| PortfolioValuation | Timer | `0 */15 9-16 * * 1-5` | PortfolioCalculator |
+| MarketData | Timer | Market hours | PriceFetcher |
+| Alert | Queue | `alert-queue` | AlertService |
+| DocumentOrchestrator | Durable | Orchestrator | New (pipeline) |
+| DocumentActivities | Durable | Activities | New (pipeline) |
+| OrchestratorStarter | HTTP | `POST /api/orchestrate` | New (pipeline) |
+| HealthCheck | HTTP | `GET /api/health` | New (monitoring) |
