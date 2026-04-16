@@ -1,0 +1,209 @@
+ÔùÅ List directory .
+  Ôöö 13 files found
+
+ÔùÅ List directory Meridian.ComplianceReporter
+  Ôöö 8 files found
+
+ÔùÅ List directory Meridian.Functions
+  Ôöö 8 files found
+
+ÔùÅ List directory Meridian.PortfolioValuation
+  Ôöö 9 files found
+
+ÔùÅ List directory Meridian.ComplianceReporter\Reports
+  Ôöö 3 files found
+
+ÔùÅ List directory Meridian.PortfolioValuation\Calculations
+  Ôöö 2 files found
+
+ÔùÅ List directory Meridian.PortfolioValuation\MarketDataFeed
+  Ôöö 2 files found
+
+ÔùÅ List directory Meridian.Functions\Functions
+  Ôöö 1 file found
+
+ÔùÅ List directory Meridian.PortfolioValuation\Notifications
+  Ôöö 1 file found
+
+ÔùÅ List directory Meridian.Functions\Models
+  Ôöö 6 files found
+
+ÔùÅ Read PortfolioCalculator.cs
+  Ôöé Meridian.PortfolioValuation\Calculations\PortfolioCalculator.cs
+  Ôöö 67 lines read
+
+ÔùÅ Read WeeklyRiskReport.cs
+  Ôöé Meridian.ComplianceReporter\Reports\WeeklyRiskReport.cs
+  Ôöö 51 lines read
+
+ÔùÅ Read MonthlyAuditReport.cs
+  Ôöé Meridian.ComplianceReporter\Reports\MonthlyAuditReport.cs
+  Ôöö 81 lines read
+
+ÔùÅ Read DailyComplianceReport.cs
+  Ôöé Meridian.ComplianceReporter\Reports\DailyComplianceReport.cs
+  Ôöö 102 lines read
+
+ÔùÅ Read Meridian.Functions.csproj
+  Ôöé Meridian.Functions\Meridian.Functions.csproj
+  Ôöö 37 lines read
+
+ÔùÅ Read Program.cs
+  Ôöé Meridian.Functions\Program.cs
+  Ôöö 14 lines read
+
+ÔùÅ Read PriceFetcher.cs
+  Ôöé Meridian.PortfolioValuation\MarketDataFeed\PriceFetcher.cs
+  Ôöö 58 lines read
+
+ÔùÅ Read AlertService.cs
+  Ôöé Meridian.PortfolioValuation\Notifications\AlertService.cs
+  Ôöö 41 lines read
+
+ÔùÅ Read BenchmarkComparator.cs
+  Ôöé Meridian.PortfolioValuation\Calculations\BenchmarkComparator.cs
+  Ôöö 26 lines read
+
+ÔùÅ Read FeedParser.cs
+  Ôöé Meridian.PortfolioValuation\MarketDataFeed\FeedParser.cs
+  Ôöö 46 lines read
+
+ÔùÅ Read ValuationService.cs
+  Ôöé Meridian.PortfolioValuation\ValuationService.cs
+  Ôöö 125 lines read
+
+ÔùÅ List directory Meridian.ComplianceReporter\Exporters
+  Ôöö 2 files found
+
+ÔùÅ List directory Meridian.Shared\Data
+  Ôöö 2 files found
+
+ÔùÅ List directory Meridian.Functions\Functions\DocumentProcessing
+  Ôöö 5 files found
+
+Now let me look at existing function files and models to understand the patterns used:
+
+ÔùÅ Read ComplianceCheckMessage.cs
+  Ôöé Meridian.Functions\Models\ComplianceCheckMessage.cs
+  Ôöö 11 lines read
+
+ÔùÅ Read ProcessDocumentFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ProcessDocumentFunction.cs
+  Ôöö 52 lines read
+
+ÔùÅ Read NotificationMessage.cs
+  Ôöé Meridian.Functions\Models\NotificationMessage.cs
+  Ôöö 13 lines read
+
+ÔùÅ Read SqlHelper.cs
+  Ôöé Meridian.Shared\Data\SqlHelper.cs
+  Ôöö 125 lines read
+
+ÔùÅ Read StoredProcedures.cs
+  Ôöé Meridian.Shared\Data\StoredProcedures.cs
+  Ôöö 25 lines read
+
+ÔùÅ Read ComplianceReporterService.cs
+  Ôöé Meridian.ComplianceReporter\ComplianceReporterService.cs
+  Ôöö 99 lines read
+
+Now let me look at existing function patterns more closely and existing exporters:
+
+ÔùÅ Read ComplianceCheckFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\ComplianceCheckFunction.cs
+  Ôöö 169 lines read
+
+ÔùÅ Read NotifyFunction.cs
+  Ôöé Meridian.Functions\Functions\DocumentProcessing\NotifyFunction.cs
+  Ôöö 130 lines read
+
+ÔùÅ Read ExcelExporter.cs
+  Ôöé Meridian.ComplianceReporter\Exporters\ExcelExporter.cs
+  Ôöö 49 lines read
+
+ÔùÅ Read PdfExporter.cs
+  Ôöé Meridian.ComplianceReporter\Exporters\PdfExporter.cs
+  Ôöö 38 lines read
+
+Now I have a full understanding of the codebase. Let me create all the files.
+
+ÔùÅ Create function directories (shell)
+  Ôöé New-Item -ItemType Directory -Path "C:\code\gbb\labs\appmodlab-windows-ser
+  Ôöé vices-to-azure-functions\Meridian.Functions\Functions\ComplianceReporting"
+  Ôöé -Force | Out-Null; New-Item -ItemType Directory -Path
+  Ôöé "C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.F
+  Ôöé unctions\Functions\PortfolioValuation" -Force | Out-Null; Write-Host ÔÇª
+  Ôöö 3 lines...
+
+ÔùÅ Create OnDemandReportRequest.cs +10
+  Ôöö Meridian.Functions\Models\OnDemandReportRequest.cs
+
+ÔùÅ Create MarketDataRecord.cs +12
+  Ôöö Meridian.Functions\Models\MarketDataRecord.cs
+
+ÔùÅ Create ComplianceReportResult.cs +13
+  Ôöö Meridian.Functions\Models\ComplianceReportResult.cs
+
+ÔùÅ Create PortfolioValuationResult.cs +13
+  Ôöö Meridian.Functions\Models\PortfolioValuationResult.cs
+
+ÔùÅ Create AlertMessage.cs +11
+  Ôöö Meridian.Functions\Models\AlertMessage.cs
+
+ÔùÅ Create MonthlyAuditReportFunction.cs +134
+  Ôöö Meridian.Functions\Functions\ComplianceReporting\MonthlyAuditReportFunction.
+    cs
+
+ÔùÅ Create WeeklyRiskReportFunction.cs +103
+  Ôöö Meridian.Functions\Functions\ComplianceReporting\WeeklyRiskReportFunction.cs
+
+ÔùÅ Create DailyComplianceReportFunction.cs +126
+  Ôöö Meridian.Functions\Functions\ComplianceReporting\DailyComplianceReportFuncti
+    on.cs
+
+ÔùÅ Create PortfolioValuationFunction.cs +205
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\PortfolioValuationFunction.c
+    s
+
+ÔùÅ Create AlertFunction.cs +86
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\AlertFunction.cs
+
+ÔùÅ Create MarketDataFunction.cs +109
+  Ôöö Meridian.Functions\Functions\PortfolioValuation\MarketDataFunction.cs
+
+ÔùÅ Create OnDemandReportFunction.cs +175
+  Ôöö Meridian.Functions\Functions\ComplianceReporting\OnDemandReportFunction.cs
+
+Now let me build to verify everything compiles:
+
+ÔùÅ Build Meridian.Functions project (shell)
+  Ôöé cd C:\code\gbb\labs\appmodlab-windows-services-to-azure-functions\Meridian.F
+  Ôöé unctions; dotnet build --no-restore 2>&1
+  Ôöö 546 lines...
+
+Build succeeded with no errors. Here's a summary of what was created:
+
+**Models (5 new files):**
+- `Models/ComplianceReportResult.cs` - Report generation result
+- `Models/OnDemandReportRequest.cs` - HTTP request for on-demand reports
+- `Models/PortfolioValuationResult.cs` - Valuation output
+- `Models/MarketDataRecord.cs` - Market data record
+- `Models/AlertMessage.cs` - Queue alert message
+
+**Compliance Reporting Functions (4 files):**
+1. `DailyComplianceReportFunction.cs` ÔÇö Timer `0 0 18 * * *` (6PM daily), ports `DailyComplianceReport.cs`
+2. `WeeklyRiskReportFunction.cs` ÔÇö Timer `0 0 9 * * 5` (Friday 9AM), ports `WeeklyRiskReport.cs`
+3. `MonthlyAuditReportFunction.cs` ÔÇö Timer `0 0 6 1 * *` (1st of month 6AM), ports `MonthlyAuditReport.cs`
+4. `OnDemandReportFunction.cs` ÔÇö HTTP POST trigger at `reports/generate`
+
+**Portfolio Valuation Functions (3 files):**
+5. `PortfolioValuationFunction.cs` ÔÇö Timer `0 */15 9-16 * * 1-5` (every 15min market hours), ports `PortfolioCalculator.cs` + `ValuationService.cs`
+6. `MarketDataFunction.cs` ÔÇö Timer `0 */5 9-16 * * 1-5`, ports `PriceFetcher.cs`
+7. `AlertFunction.cs` ÔÇö QueueTrigger on `alert-queue`, ports `AlertService.cs`
+
+All files follow the existing isolated worker patterns (constructor-injected `ILogger<T>`, `[Function(nameof(...))]`, Blob/Queue storage). Legacy `SqlHelper`/`StoredProcedures` calls are documented in XML comments with placeholder data. Reports output to Blob Storage instead of the local filesystem.
+
+
+Changes   +997 -0
+Requests  3 Premium (3m 54s)
+Tokens    Ôåæ 402.0k ÔÇó Ôåô 16.5k ÔÇó 337.2k (cached)
