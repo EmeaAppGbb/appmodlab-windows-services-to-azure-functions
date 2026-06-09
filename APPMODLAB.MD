@@ -11,7 +11,7 @@ modernizationTools: []
 agenticTools: []
 tags: ["windows-services", "serverless", "azure-functions", "durable-functions", "event-driven"]
 extensions: ["github.copilot"]
-thumbnail: ""
+thumbnail: "https://raw.githubusercontent.com/EmeaAppGbb/appmodlab-windows-services-to-azure-functions/main/assets/thumbnail-gpt-image.png"
 video: ""
 version: "1.0.0"
 ---
